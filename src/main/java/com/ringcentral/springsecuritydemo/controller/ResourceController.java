@@ -17,9 +17,9 @@ public class ResourceController {
     @Autowired
     private GenericService userService;
 
-    @RequestMapping(value ="/users", method = RequestMethod.GET)
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN_USER')")
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return userService.findAllUsers();
     }
 }
