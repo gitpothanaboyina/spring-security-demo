@@ -24,7 +24,7 @@ import java.beans.PropertyVetoException;
 public class DatasourceConfig {
 
     @Bean
-    public DataSource datasource() throws PropertyVetoException {
+    public DataSource datasource() {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         EmbeddedDatabase dataSource = builder
                 .setType(EmbeddedDatabaseType.H2)
@@ -39,7 +39,7 @@ public class DatasourceConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(@Qualifier("datasource") DataSource ds) throws PropertyVetoException {
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactory.setDataSource(ds);
-        entityManagerFactory.setPackagesToScan(new String[]{"com.ringcentral.springsecuritydemo.entity"});
+        entityManagerFactory.setPackagesToScan("com.ringcentral.springsecuritydemo.entity");
         JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
         entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
         return entityManagerFactory;

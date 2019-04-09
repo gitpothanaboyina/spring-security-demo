@@ -1,6 +1,5 @@
 package com.ringcentral.springsecuritydemo.controller;
 
-import com.ringcentral.springsecuritydemo.entity.User;
 import com.ringcentral.springsecuritydemo.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,18 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/demo")
-public class ResourceController {
+@RequestMapping("/public")
+public class PublicController {
 
-    @Autowired
-    private GenericService userService;
-
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('ADMIN_USER')")
-    public ResponseEntity<List<User>> getUsers() {
-        return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public ResponseEntity<String> getUsers() {
+        return new ResponseEntity<>("test", HttpStatus.OK);
     }
 }
