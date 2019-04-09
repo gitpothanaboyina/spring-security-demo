@@ -1,16 +1,18 @@
 package com.ringcentral.springsecuritydemo.entity;
 
+import javax.persistence.*;
+
 @Entity
-@Table(name="app_role")
+@Table(name = "app_role")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="role_name")
+    @Column(name = "role_name")
     private String roleName;
 
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
 

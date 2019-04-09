@@ -20,7 +20,7 @@ import java.beans.PropertyVetoException;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "com.nouhoun.springboot.jwt.integration.repository")
+@EnableJpaRepositories(basePackages = "com.ringcentral.springsecuritydemo.repository")
 public class DatasourceConfig {
 
     @Bean
