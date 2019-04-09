@@ -19,47 +19,46 @@ import java.util.Collections;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-	@Value("${security.jwt.client-id}")
-	private String clientId;
+    @Value("${security.jwt.client-id}")
+    private String clientId;
 
-	@Value("${security.jwt.client-secret}")
-	private String clientSecret;
+    @Value("${security.jwt.client-secret}")
+    private String clientSecret;
 
-	@Value("${security.jwt.resource-ids}")
-	private String resourceIds;
+    @Value("${security.jwt.resource-ids}")
+    private String resourceIds;
 
-	@Autowired
-	private TokenStore tokenStore;
+    @Autowired
+    private TokenStore tokenStore;
 
-	@Autowired
-	private JwtAccessTokenConverter accessTokenConverter;
+    @Autowired
+    private JwtAccessTokenConverter accessTokenConverter;
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-	@Override
-	public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
-		configurer
-		        .inMemory()
-		        .withClient(clientId)
-				.secret(passwordEncoder.encode(clientSecret))
-		        .authorizedGrantTypes("password")
-		        .scopes("read", "write")
-		        .resourceIds(resourceIds);
+    @Override
+    public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
+        configurer
+                .inMemory()
+                .withClient(clientId)
+                .secret(passwordEncoder.encode(clientSecret))
+                .authorizedGrantTypes("password")
+                .scopes("read", "write")
+                .resourceIds(resourceIds);
+    }
 
-	}
-
-	@Override
-	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
-		enhancerChain.setTokenEnhancers(Collections.singletonList(accessTokenConverter));
-		endpoints.tokenStore(tokenStore)
-		        .accessTokenConverter(accessTokenConverter)
-		        .tokenEnhancer(enhancerChain)
-		        .authenticationManager(authenticationManager);
-	}
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+        TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+        enhancerChain.setTokenEnhancers(Collections.singletonList(accessTokenConverter));
+        endpoints.tokenStore(tokenStore)
+                .accessTokenConverter(accessTokenConverter)
+                .tokenEnhancer(enhancerChain)
+                .authenticationManager(authenticationManager);
+    }
 
 }
